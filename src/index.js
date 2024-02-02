@@ -1,13 +1,16 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const { connectToDatabase } = require('./config/db-config');
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
+
+connectToDatabase();
 
 // Endpoint de ejemplo
 app.get('/', (req, res) => {
