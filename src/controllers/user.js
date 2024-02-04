@@ -1,7 +1,5 @@
-const userService = require('../services/user');
-
 const createUser = async (req, res) => {
-    console.log(req);
+  console.log(req);
   const { name } = req.body;
 
   try {
@@ -11,9 +9,14 @@ const createUser = async (req, res) => {
     }
 
     const userData = { name };
-    const newUser = await userService.createUser(userData);
+    try {
+      const newUser = new User(userData);
+      const savedUser = await newUser.save();
+      res.status(201).json({ user: savedUser });
+    } catch (error) {
+      throw error;
+    }
 
-    res.status(201).json({ user: newUser });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
