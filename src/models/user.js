@@ -32,4 +32,4 @@ const UserSchema = Schema({
 });
 
 // Exportamos el modelo para usarlo en otros ficheros
-module.exports = mongoose.model('User', UserSchema);
+module.exports = model('User', UserSchema);
