@@ -1,5 +1,22 @@
 // userController.js
-const User = require('./../models/user');
+const User = require('../models/user');
+
+const prueba = async (req, res) => {
+  try {
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Prueba exitosa',
+    })
+    
+  } catch (error) {
+    res.status(400).json({
+      status: 'error',
+      message: 'Hubo un error en la prueba',
+      error: error.message,
+    })
+  }
+};
 
 const createUser = async (req, res) => {
   console.log(req);
@@ -30,4 +47,5 @@ const createUser = async (req, res) => {
 
 module.exports = {
   createUser,
+  prueba,
 };
