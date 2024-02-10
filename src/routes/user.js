@@ -4,8 +4,6 @@ const userController = require('../controllers/user');
 
 const router = express.Router();
 
-// Endpoint para agregar un usuario
-
 // GET
 router.get('/prueba', userController.prueba);
 // POST
