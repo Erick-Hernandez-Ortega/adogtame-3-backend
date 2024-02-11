@@ -6,9 +6,9 @@ const UserSchema = Schema({
         type: String,
         required: true,
     },
-    lastname: {
-        type: String,
-    },
+    // lastname: {
+    //     type: String,
+    // },
     age: {
         type: Number,
         required: true,

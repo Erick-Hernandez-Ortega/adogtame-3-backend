@@ -6,7 +6,8 @@ const router = express.Router();
 
 // GET
 router.get('/prueba', userController.prueba);
-// POST
-router.post('/create', userController.createUser);
+
+// http://localhost:3001/user
+router.post('', userController.createUser);
 
 module.exports = router;

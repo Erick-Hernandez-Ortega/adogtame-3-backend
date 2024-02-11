@@ -19,7 +19,6 @@ const prueba = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  console.log(req);
   const { name } = req.body;
 
   try {
