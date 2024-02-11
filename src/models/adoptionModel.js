@@ -1,12 +1,8 @@
 const { Schema, model } = require('mongoose');
-const Usuario = require('./user.js');
-const Mascota = require('./Mascota.js');
+const Usuario = require('./userModel.js');
+const Mascota = require('./petModel.js');
 
-const PublicacionSchema = Schema({
-    content: {
-        type: String,
-        required: true,
-    },
+const AdopcionSchema = Schema({
     mascota: {
         type: Schema.Types.ObjectId,
         ref: 'Mascota',
@@ -23,4 +19,4 @@ const PublicacionSchema = Schema({
     },
 });
 
-module.exports = model('Publicacion', PublicacionSchema);
+module.exports = model('Adopcion', AdopcionSchema);

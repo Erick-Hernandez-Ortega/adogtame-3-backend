@@ -1,6 +1,6 @@
 // routes/adopcionRoutes.js
 const express = require('express');
-const adopcionController = require('../controllers/adopcion');
+const adopcionController = require('../controllers/adoptionController');
 
 const router = express.Router();
 

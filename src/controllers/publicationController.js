@@ -1,4 +1,4 @@
-const Adopcion = require('../models/Adopciones');
+const Publicacion = require('../models/publicationModel');
 
 const prueba = async (req, res) => {
     try {

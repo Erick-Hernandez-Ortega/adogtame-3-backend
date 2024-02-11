@@ -1,5 +1,5 @@
 // userController.js
-const User = require('../models/user');
+const User = require('../models/userModel');
 
 const prueba = async (req, res) => {
   try {

@@ -1,6 +1,6 @@
 // routes/mascotaRoutes.js
 const express = require('express');
-const mascotaController = require('../controllers/mascota');
+const mascotaController = require('../controllers/petController');
 
 const router = express.Router();
 
