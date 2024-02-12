@@ -1,39 +1,32 @@
 // userController.js
 const User = require('../models/userModel');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
-const prueba = async (req, res) => {
-  try {
+// Función para hashear la contraseña
+const hashPassword = async (plainPassword) => {
+  const hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
+  return hashedPassword;
+};
 
-    res.status(200).json({
-      status: 'success',
-      message: 'Prueba exitosa',
-    })
-    
-  } catch (error) {
-    res.status(400).json({
-      status: 'error',
-      message: 'Hubo un error en la prueba',
-      error: error.message,
-    })
-  }
+// Función para verificar la contraseña
+const comparePasswords = async (plainPassword, hashedPassword) => {
+  const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
+  return isMatch;
 };
 
 const createUser = async (req, res) => {
-  const { name } = req.body;
+  const { name, age, email, password, username } = req.body;
 
   try {
-    // Validar que se proporciona el nombre
-    if (!name) {
-      return res.status(400).json({ error: 'Name is required' });
-    }
-
-    const userData = { name };
+    const userData = { name, age, email, password: await hashPassword(password), username };
     try {
       const newUser = new User(userData);
       const savedUser = await newUser.save();
-      res.status(201).json({ 
+      res.status(201).json({
         message: "Exito, usuario creado correctamente",
-        user: savedUser });
+        user: savedUser
+      });
     } catch (error) {
       throw error;
     }
@@ -46,5 +39,4 @@ const createUser = async (req, res) => {
 
 module.exports = {
   createUser,
-  prueba,
 };

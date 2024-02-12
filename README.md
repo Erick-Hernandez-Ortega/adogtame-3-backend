@@ -9,5 +9,6 @@ Backend Adogtame 3 con NodeJS Express
 - Class-Validator
 - Nodemon 
 - Mongoose
+- Bcript
 
 Para ejecutar: ```npm run start```
