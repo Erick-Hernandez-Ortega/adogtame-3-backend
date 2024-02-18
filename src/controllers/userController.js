@@ -41,8 +41,6 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   try {
     const userData = { email, password };
-    if(!email || !password) throw new Error('Faltan los datos del usuario');
-
     res.status(200).json({
       status: 'success',
       message: 'hola bb',
