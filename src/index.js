@@ -9,8 +9,7 @@ const publicationRoutes = require('./routes/publicationRoutes.js');
 const adoptionRoutes = require('./routes/adoptionRoutes.js');
 
 const { connectToDatabase } = require('./config/db-config');
-// TODO cambiar nombres de rutas en ingles y nombres de archivos
-// TODO hacer el endpoitn de registrar usuario con validaciones
+
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
