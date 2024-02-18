@@ -43,7 +43,7 @@ const isValidEmail = (email) => {
 };
 
 const isValidName = (name) => {
-    const nameRegex = /^[a-zA-Z]+$/
+    const nameRegex = /^[a-zA-Z\s]+$/;
     return nameRegex.test(name);
 }
 
