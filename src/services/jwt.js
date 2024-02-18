@@ -6,16 +6,22 @@ require('dotenv').config({ path: '.env' });
 const secret = process.env.SECRET;
 
 exports.createToken = (user) => {
-    const payload = {
-        id: user._id,
-        name: user.name,
-        username: user.username,
-        age: user.age,
-        email: user.email,
-        image: user.imagen,
-        iat: moment().unix(),
-        exp: moment().add(30, "days").unix(),
-    }
+    try {
+        const payload = {
+            id: user._id,
+            name: user.name,
+            username: user.username,
+            age: user.age,
+            email: user.email,
+            image: user.imagen,
+            iat: moment().unix(),
+            exp: moment().add(30, "days").unix(),
+        }
 
-    return jwt.encode(payload, secret);
+        return jwt.encode(payload, secret);
+    } catch (error) {
+        return {
+            error: error.message,
+        }
+    }
 }

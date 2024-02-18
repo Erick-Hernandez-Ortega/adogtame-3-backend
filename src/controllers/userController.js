@@ -1,6 +1,7 @@
 // userController.js
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
+const jwt = require('../services/jwt');
 const saltRounds = 10;
 
 // Función para hashear la contraseña
@@ -41,10 +42,13 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   try {
     const userData = { email, password };
+    const token = jwt.createToken(userData);
+
     res.status(200).json({
       status: 'success',
       message: 'hola bb',
-      user: userData,
+      user: req.user,
+      token: token,
     })
   } catch (error) {
     res.status(400).json({
