@@ -61,7 +61,7 @@ const validateLogin = async (req, res, next) => {
         if (!existingPwd) {
             return res.status(404).json({ status: "error", message: "La contraseña no coincide" });
         }
-        req.user = existingUser;
+        req.currentUser = existingUser;
         next();
     } catch (error) {
         console.error('Error al validar el inicio de sesión:', error);

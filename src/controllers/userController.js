@@ -39,15 +39,14 @@ const createUser = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
   try {
-    const userData = { email, password };
+    const userData = req.currentUser;
+    if(!userData || Object.keys(userData).length === 0) throw new Error({ status: 'error', message: 'No se pudo obtener al usuario'});
+    delete userData.password;
     const token = jwt.createToken(userData);
 
     res.status(200).json({
       status: 'success',
-      message: 'hola bb',
-      user: req.user,
       token: token,
     })
   } catch (error) {
