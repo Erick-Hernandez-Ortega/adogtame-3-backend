@@ -17,6 +17,11 @@ const validateUserCreation = async (req, res, next) => {
         return res.status(409).json({ status: "Error", message: "El email proporcionado ya está en uso" });
     }
 
+    const existingUsername = await User.findOne({username});
+    if (existingUsername) {
+        return res.status(409).json({ status: "Error", message: "El username proporcionado ya está en uso" });
+    }
+
     if (isNaN(age)) {
         return res.status(400).json({ status: "Error", message: "Error edad debe ser un numero" });
     }
