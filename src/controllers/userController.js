@@ -2,6 +2,7 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('../services/jwt');
+const userValidation = require('../validations/userValidations');
 const saltRounds = 10;
 
 // Función para hashear la contraseña
@@ -40,9 +41,12 @@ const createUser = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const userData = req.currentUser;
-    if(!userData || Object.keys(userData).length === 0) throw new Error({ status: 'error', message: 'No se pudo obtener al usuario'});
-    delete userData.password;
+    const userData = req.body;
+    if (!userData || Object.keys(userData).length === 0) throw new Error('No se pudo obtener al usuario');
+
+    const validationStatus = await userValidation.validateLogin(userData.email, userData.password);
+    if (validationStatus.status === 'error') throw new Error(validationStatus.message);
+
     const token = jwt.createToken(userData);
 
     res.status(200).json({

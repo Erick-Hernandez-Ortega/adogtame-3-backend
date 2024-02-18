@@ -47,22 +47,17 @@ const isValidPassword = (password) => {
     return passwordRegex.test(password);
 }
 
-const validateLogin = async (req, res, next) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
-        return res.status(400).json({ status: "Error", message: "Falta un campo para hacer el login" });
-    }
+const validateLogin = async (email, pwd) => {
     try {
         const existingUser = await User.findOne({ email: email });
         if (!existingUser) {
-            return res.status(404).json({ status: "error", message: "El correo no coincide con ningún usuario" });
+            return { status: "error", message: "El correo no coincide con ningún usuario" };
         }
-        const existingPwd = await bcrypt.compare(password, existingUser.password);
+        const existingPwd = await bcrypt.compare(pwd, existingUser.password);
         if (!existingPwd) {
-            return res.status(404).json({ status: "error", message: "La contraseña no coincide" });
+            return { status: "error", message: "La contraseña no coincide" };
         }
-        req.currentUser = existingUser;
-        next();
+        return { status: 'success', user: existingUser, }
     } catch (error) {
         console.error('Error al validar el inicio de sesión:', error);
         return res.status(500).json({ status: "error", message: "Error interno del servidor" });
