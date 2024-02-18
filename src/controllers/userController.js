@@ -5,6 +5,23 @@ const jwt = require('../services/jwt');
 const userValidation = require('../validations/userValidations');
 const saltRounds = 10;
 
+// No me quites mi función de pruebas :/
+const prueba = async (req, res) => {
+  try {
+    res.status(200).json({
+      status: 'Success',
+      message: 'Todo bien',
+      user: req.user
+    })
+  } catch (error) {
+    res.status(400).json({
+      status: 'error',
+      message: 'Algo tronó',
+      error: error.message,
+    })
+  }
+}
+
 // Función para hashear la contraseña
 const hashPassword = async (plainPassword) => {
   const hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
@@ -47,7 +64,7 @@ const login = async (req, res) => {
     const validationStatus = await userValidation.validateLogin(userData.email, userData.password);
     if (validationStatus.status === 'error') throw new Error(validationStatus.message);
 
-    const token = jwt.createToken(userData);
+    const token = jwt.createToken(validationStatus.user);
 
     res.status(200).json({
       status: 'success',
@@ -65,4 +82,5 @@ const login = async (req, res) => {
 module.exports = {
   createUser,
   login,
+  prueba,
 };
