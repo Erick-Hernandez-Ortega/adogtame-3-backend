@@ -7,8 +7,7 @@ const secret = process.env.SECRET;
 exports.auth = (req, res, next) => {
     if (!req.headers.authorization) {
         return res.status(403).json({
-            status: 'error',
-            message: 'La petición no tiene la cabecera',
+            error: 'La petición no tiene la cabecera',
         });
     }
 
@@ -26,11 +25,8 @@ exports.auth = (req, res, next) => {
 
         req.user = payload;
     } catch (error) {
-        return res.status(404).json({
-            status: 'error',
-            message: 'Error al enviar el token',
-            error: error.message
-        })
+        console.error(error);
+        return res.status(404).json({ error: 'Error al enviar el token' })
     }
 
     next();

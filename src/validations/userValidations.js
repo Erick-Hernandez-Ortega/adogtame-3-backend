@@ -17,7 +17,7 @@ const validateUserCreation = async (req, res, next) => {
         return res.status(409).json({ status: "Error", message: "El email proporcionado ya está en uso" });
     }
 
-    const existingUsername = await User.findOne({username});
+    const existingUsername = await User.findOne({ username });
     if (existingUsername) {
         return res.status(409).json({ status: "Error", message: "El username proporcionado ya está en uso" });
     }
@@ -65,7 +65,7 @@ const validateLogin = async (email, pwd) => {
         return { status: 'success', user: existingUser, }
     } catch (error) {
         console.error('Error al validar el inicio de sesión:', error);
-        return res.status(500).json({ status: "error", message: "Error interno del servidor" });
+        return res.status(500).json({ message: "Internal error" });
     }
 };
 

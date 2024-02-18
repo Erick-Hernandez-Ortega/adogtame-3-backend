@@ -71,11 +71,8 @@ const login = async (req, res) => {
       token: token,
     })
   } catch (error) {
-    res.status(400).json({
-      status: 'error',
-      message: 'Critical error',
-      error: error.message,
-    })
+    console.error(error);
+    res.status(400).json({ error: 'Internal Error' })
   }
 };
 

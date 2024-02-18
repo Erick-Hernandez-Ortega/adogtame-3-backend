@@ -20,8 +20,9 @@ exports.createToken = (user) => {
 
         return jwt.encode(payload, secret);
     } catch (error) {
+        console.error(error);
         return {
-            error: error.message,
+            error: 'Internal Error'
         }
     }
 }
