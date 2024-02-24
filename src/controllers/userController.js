@@ -77,8 +77,29 @@ const login = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  try {
+    const currentUser = req.user.id;
+    if (!currentUser) throw new Error('No se detecto un usuario autorizado');
+
+    const user = await User.findById(currentUser);
+    if (!user) throw new Error('No se encontro un usuario con ese ID');
+
+    user.isTokenRemoved = true;
+    await user.save();
+
+    res.status(200).json({
+      status: 'Sesion cerrada correctamente',
+    })
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ error: 'Internal Error' })
+  }
+}
+
 module.exports = {
   createUser,
   login,
+  logout,
   prueba,
 };

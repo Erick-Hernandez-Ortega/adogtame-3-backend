@@ -12,5 +12,6 @@ router.get('/prueba', autentication.auth, userController.prueba);
 // http://localhost:3001/user
 router.post('', validateUserCreation, userController.createUser);
 router.post('/login', userController.login);
+router.post('/logout', autentication.auth, userController.logout);
 
 module.exports = router;

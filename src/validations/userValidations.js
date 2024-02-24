@@ -54,7 +54,9 @@ const isValidPassword = (password) => {
 
 const validateLogin = async (email, pwd) => {
     try {
-        const existingUser = await User.findOne({ email: email });
+        const existingUser = await User.findOne({
+            $or: [{ email: email }, { username: email }]
+        });
         if (!existingUser) {
             return { status: "error", message: "El correo no coincide con ningún usuario" };
         }
@@ -62,6 +64,7 @@ const validateLogin = async (email, pwd) => {
         if (!existingPwd) {
             return { status: "error", message: "La contraseña no coincide" };
         }
+        await User.updateOne({ _id: existingUser._id }, { isTokenRemoved: false });
         return { status: 'success', user: existingUser, }
     } catch (error) {
         console.error('Error al validar el inicio de sesión:', error);

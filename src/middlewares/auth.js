@@ -1,10 +1,10 @@
 const jwt = require('jwt-simple');
 const moment = require('moment');
 require('dotenv').config({ path: '.env' });
-
+const User = require('../models/userModel');
 const secret = process.env.SECRET;
 
-exports.auth = (req, res, next) => {
+exports.auth = async (req, res, next) => {
     if (!req.headers.authorization) {
         return res.status(403).json({
             error: 'La petición no tiene la cabecera',
@@ -12,6 +12,11 @@ exports.auth = (req, res, next) => {
     }
 
     let token = req.headers.authorization.replace(/['"]+/g, '');
+
+    const user = await User.findOne({ isTokenRemoved: false });
+    if (!user) {
+        return res.status(401).json({ message: 'Token revocado o inválido' });
+    }
 
     try {
         let payload = jwt.decode(token, secret);
