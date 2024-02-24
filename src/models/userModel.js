@@ -25,6 +25,10 @@ const UserSchema = Schema({
         type: String,
         default: 'defaulf.png',
     },
+    isTokenRemoved: {
+        type: Boolean,
+        default: false,
+    },
     date: {
         type: Date,
         default: Date.now(),
