@@ -44,6 +44,7 @@ const createUser = async (req, res) => {
       const savedUser = await newUser.save();
       res.status(201).json({
         message: "Exito, usuario creado correctamente",
+        status: "success",
         user: savedUser
       });
     } catch (error) {
