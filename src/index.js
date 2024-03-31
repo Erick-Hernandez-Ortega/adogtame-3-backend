@@ -26,7 +26,7 @@ connectToDatabase();
 // Configuración de rutas y otros elementos aquí...
 app.use('/user', userRoutes);
 app.use('/pet', petRoutes);
-app.use('/pubblication', publicationRoutes);
+app.use('/publication', publicationRoutes);
 app.use('/adoption', adoptionRoutes);
 
 app.listen(port, () => {

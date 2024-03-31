@@ -1,6 +1,7 @@
 // routes/publicacionRoutes.js
 const express = require('express');
 const publicacionController = require('../controllers/publicationController');
+const autentication = require('../middlewares/auth');
 
 const router = express.Router();
 
@@ -8,6 +9,6 @@ const router = express.Router();
 router.get('/prueba', publicacionController.prueba);
 
 // * POST 
-router.post('');
+router.post('', autentication.auth, publicacionController.createPublication);
 
 module.exports = router;
