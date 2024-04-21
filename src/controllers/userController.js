@@ -63,8 +63,8 @@ const login = async (req, res) => {
     if (!userData || Object.keys(userData).length === 0) throw new Error('No se pudo obtener al usuario');
 
     const validationStatus = await userValidation.validateLogin(userData.email, userData.password);
-    if (validationStatus.status === 'error') throw new Error(validationStatus.message);
-
+    if (validationStatus.status === 'error') return res.status(400).json({ error: 'Internal Error', message: validationStatus.message });
+     
     const token = jwt.createToken(validationStatus.user);
 
     res.status(200).json({
