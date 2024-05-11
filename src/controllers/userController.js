@@ -97,9 +97,26 @@ const logout = async (req, res) => {
   }
 }
 
+const findByEmail = async (req, res) => {
+  try {
+    const { email } = req.params
+
+    if (!email) return res.status(400).json({ error: 'Email no valido', status: 'error', });
+
+    const user = await User.findOne({ email: email }, { password: 0, __v: 0 });
+
+    if (user === null) return res.status(404).json({ error: 'Usuario no encontrado' });
+
+    return res.status(200).json({ user: user, status: 'success', message: 'Usuario encontrado' });
+  } catch (error) {
+    res.status(400).json({ error: 'Internal Error', message: error });
+  }
+}
+
 module.exports = {
   createUser,
   login,
   logout,
   prueba,
+  findByEmail
 };
