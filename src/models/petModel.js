@@ -6,7 +6,7 @@ const MascotaSchema = Schema({
         type: String,
         required: true,
     },
-    raza: {
+    breed: {
         type: String,
         required: true,
     },
