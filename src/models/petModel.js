@@ -21,6 +21,18 @@ const MascotaSchema = Schema({
         type: Boolean,
         required: true,
     },
+    sex: {
+        type: String,
+        required: true,
+    },
+    typeOfPet: {
+        type: String,
+        required: true,
+    },
+    size: {
+        type: String,
+        required: true,
+    },
     available: {
         type: Boolean,
         default: true,
