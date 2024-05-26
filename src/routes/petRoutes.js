@@ -7,4 +7,7 @@ const router = express.Router();
 // GET
 router.get('/prueba', mascotaController.prueba);
 
+// POST
+router.post('', mascotaController.createPet);
+
 module.exports = router;
