@@ -19,7 +19,11 @@ const prueba = async (req, res) => {
 
 const createPet = async (req, res) => {
     try {
-        console.log("object", req.body);
+        const pet = JSON.parse(req.body.pet);
+        const images = req.files;
+    
+        console.log('Pet:', pet);
+        console.log('Images:', images);
 
         res.status(200).json({
             status: 'success',
