@@ -1,7 +1,6 @@
 const jwt = require('jwt-simple');
 const moment = require('moment');
 require('dotenv').config({ path: '.env' });
-const User = require('../models/userModel');
 const secret = process.env.SECRET;
 
 exports.auth = async (req, res, next) => {
