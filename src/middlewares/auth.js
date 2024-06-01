@@ -13,7 +13,7 @@ exports.auth = async (req, res, next) => {
 
     let token = req.headers.authorization.replace(/['"]+/g, '');
 
-    const user = await User.findOne({ isTokenRemoved: false });
+    const user = await User.findOne({ isTokenRemoved: true });
     if (!user) {
         return res.status(401).json({ message: 'Token revocado o inválido' });
     }
