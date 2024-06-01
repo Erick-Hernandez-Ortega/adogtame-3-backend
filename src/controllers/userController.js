@@ -59,10 +59,12 @@ const createUser = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const userData = req.body;
-    if (!userData || Object.keys(userData).length < 2) return res.status(400).json({ message: 'Los campos son obligatorios' });
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ message: 'El correo electrónico y la contraseña son obligatorios' });
+    }
 
-    const validationStatus = await userValidation.validateLogin(userData.email, userData.password);
+    const validationStatus = await userValidation.validateLogin(email, password);
     if (validationStatus.status === 'error') return res.status(400).json({ message: validationStatus.message });
     
     const token = jwt.createToken(validationStatus.user);
