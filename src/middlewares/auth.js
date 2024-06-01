@@ -13,10 +13,10 @@ exports.auth = async (req, res, next) => {
 
     let token = req.headers.authorization.replace(/['"]+/g, '');
 
-    const user = await User.findOne({ isTokenRemoved: true });
-    if (!user) {
-        return res.status(401).json({ message: 'Token revocado o inválido' });
-    }
+    /*     const user = await User.findOne({ isTokenRemoved: true });
+        if (!user) {
+            return res.status(401).json({ message: 'Token revocado o inválido' });
+        } */
 
     try {
         let payload = jwt.decode(token, secret);
@@ -28,7 +28,6 @@ exports.auth = async (req, res, next) => {
             });
         }
 
-        req.user = payload;
     } catch (error) {
         console.error(error);
         return res.status(404).json({ error: 'Error al enviar el token' })
