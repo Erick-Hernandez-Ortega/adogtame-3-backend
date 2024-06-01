@@ -58,7 +58,7 @@ const validateLogin = async (email, pwd) => {
             $or: [{ email: email }, { username: email }]
         });
         if (!existingUser) {
-            return { status: "error", message: "El correo no coincide con ningún usuario" };
+            return { status: "error", message: "El correo o el nombre de usurio no coinciden con ningún usuario" };
         }
         const existingPwd = await bcrypt.compare(pwd, existingUser.password);
         if (!existingPwd) {
