@@ -3,6 +3,7 @@ const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('../services/jwt');
 const userValidation = require('../validations/userValidations');
+const { checkTokenStatus } = require('../services/checkToken');
 const saltRounds = 10;
 
 // No me quites mi función de pruebas :/
@@ -66,7 +67,7 @@ const login = async (req, res) => {
 
     const validationStatus = await userValidation.validateLogin(email, password);
     if (validationStatus.status === 'error') return res.status(400).json({ message: validationStatus.message });
-    
+
     const token = jwt.createToken(validationStatus.user);
 
     res.status(200).json({
@@ -80,10 +81,14 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    const currentUser = req.user.id;
-    if (!currentUser) throw new Error('No se detecto un usuario autorizado');
+    let token = req.headers.authorization.replace(/['"]+/g, '');
 
-    const user = await User.findById(currentUser);
+    const tokenStatus = await checkTokenStatus(token)
+    if(tokenStatus.isTokenRemoved){
+      return res.status(400).json({ status: 'error', message: 'Token Removido Anteriomente' });
+    }
+
+    const user = await User.findById(tokenStatus.userID);
     if (!user) throw new Error('No se encontro un usuario con ese ID');
 
     user.isTokenRemoved = true;
@@ -94,7 +99,7 @@ const logout = async (req, res) => {
     })
   } catch (error) {
     console.error(error);
-    res.status(400).json({ error: 'Internal Error' })
+    res.status(400).json({ error: error })
   }
 }
 
