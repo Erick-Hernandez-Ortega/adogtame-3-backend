@@ -58,19 +58,20 @@ const validateLogin = async (email, pwd) => {
             $or: [{ email: email }, { username: email }]
         });
         if (!existingUser) {
-            return { status: "error", error: "El correo no coincide con ningún usuario" };
+            return { status: "error", message: "El correo no coincide con ningún usuario" };
         }
         const existingPwd = await bcrypt.compare(pwd, existingUser.password);
         if (!existingPwd) {
-            return { status: "error", error: "La contraseña no coincide" };
+            return { status: "error", message: "La contraseña no coincide" };
         }
         await User.updateOne({ _id: existingUser._id }, { isTokenRemoved: false });
-        return { status: 'success', user: existingUser, }
+        return { status: 'success', user: existingUser };
     } catch (error) {
-        console.error('Error al validar el inicio de sesión:', error);
-        return res.status(500).json({ error: "Internal error" });
+        console.log('Error al validar el inicio de sesión:', error);
+        return { status: "error", message: "Error al validar el inicio de sesión" };
     }
 };
+
 
 module.exports = {
     validateUserCreation,

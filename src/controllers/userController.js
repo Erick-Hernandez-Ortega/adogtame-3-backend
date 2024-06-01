@@ -60,11 +60,11 @@ const createUser = async (req, res) => {
 const login = async (req, res) => {
   try {
     const userData = req.body;
-    if (!userData || Object.keys(userData).length === 0) throw new Error('No se pudo obtener al usuario');
+    if (!userData || Object.keys(userData).length < 2) return res.status(400).json({ message: 'Los campos son obligatorios' });
 
     const validationStatus = await userValidation.validateLogin(userData.email, userData.password);
-    if (validationStatus.status === 'error') return res.status(400).json({ error: 'Internal Error', message: validationStatus.message });
-     
+    if (validationStatus.status === 'error') return res.status(400).json({ message: validationStatus.message });
+    
     const token = jwt.createToken(validationStatus.user);
 
     res.status(200).json({
@@ -72,8 +72,7 @@ const login = async (req, res) => {
       token: token,
     })
   } catch (error) {
-    console.error(error);
-    res.status(400).json({ error: 'Internal Error' })
+    console.log(error);
   }
 };
 
