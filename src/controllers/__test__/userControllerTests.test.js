@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../../index");
 
-// TODO arreglar el cierre de sesion de Mongo y la detención del servidor
+// TODO arreglar el cierre de sesion de Mongo y la detención del servidor y termiar pruebas de logout
 describe("POST /user", () => {
     // Validations
     it('Should display a 400 error for empty input', async () => {
