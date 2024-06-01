@@ -31,7 +31,7 @@ const validateUserCreation = async (req, res, next) => {
     }
 
     if (!isValidPassword(password)) {
-        return res.status(400).json({ status: "Error", error: "Error la contraseña debera de tener una mayuscula un numero y" });
+        return res.status(400).json({ status: "Error", error: "Error la contraseña debera de tener almenos una mayuscula, un numero y debe tener minimo 8 caracteres" });
     }
 
     next();
