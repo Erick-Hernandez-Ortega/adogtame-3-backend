@@ -31,3 +31,5 @@ app.use('/adoption', adoptionRoutes);
 app.listen(port, () => {
     console.log('Servidor Express escuchando en el puerto ' + port);
 });
+
+export default app
