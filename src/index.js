@@ -28,8 +28,11 @@ app.use('/pet', petRoutes);
 app.use('/publication', publicationRoutes);
 app.use('/adoption', adoptionRoutes);
 
-app.listen(port, () => {
-    console.log('Servidor Express escuchando en el puerto ' + port);
-});
+if (require.main === module) {
+    // Si este archivo es ejecutado directamente (no importado como un módulo en otro archivo), entonces iniciamos el servidor.
+    app.listen(port, () => {
+        console.log('Servidor Express escuchando en el puerto ' + port);
+    });
+}
 
-module.exports = { app }
+module.exports = app 
