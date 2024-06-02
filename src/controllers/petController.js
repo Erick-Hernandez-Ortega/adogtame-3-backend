@@ -19,11 +19,18 @@ const prueba = async (req, res) => {
 
 const createPet = async (req, res) => {
     try {
+        
         const pet = JSON.parse(req.body.pet);
+        const id = req.user;
         const images = req.files;
-    
-        console.log('Pet:', pet);
-        console.log('Images:', images);
+
+        const newPet = new Mascota(pet);
+        newPet.images = images.map(file => ({
+            data: file.buffer,
+            contentType: file.mimetype
+        }));
+        newPet.owner = id;
+        await newPet.save();
 
         res.status(200).json({
             status: 'success',
