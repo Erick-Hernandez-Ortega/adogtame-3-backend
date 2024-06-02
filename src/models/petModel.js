@@ -11,7 +11,7 @@ const MascotaSchema = Schema({
         required: true,
     },
     age: {
-        type: Number,
+        type: String,
         required: true,
     },
     description: {
@@ -42,13 +42,14 @@ const MascotaSchema = Schema({
         ref: 'User',
         required: true,
     },
-    images: {
-        type: [String],
+    images: [{
+        data: Buffer,
+        contentType: String
+    }],
+    date: {
+        type: Date,
+        default: Date.now(),
     },
-    // date: {
-    //     type: Date,
-    //     default: Date.now(),
-    // },
 });
 
 module.exports = model('Mascota', MascotaSchema);
