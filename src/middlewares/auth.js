@@ -26,7 +26,7 @@ exports.auth = async (req, res, next) => {
                 message: 'Token expirado',
             });
         }
-
+        req.user = payload.id;
     } catch (error) {
         console.error(error);
         return res.status(404).json({ error: 'Error al enviar el token' })
