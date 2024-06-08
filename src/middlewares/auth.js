@@ -22,15 +22,12 @@ exports.auth = async (req, res, next) => {
 
         if (payload.exp <= moment().unix()) {
             return res.status(403).json({
-                status: 'error',
-                message: 'Token expirado',
-            });
+                error: 'Token Expirado'
+            }); 
         }
         req.user = payload.id;
+        next();
     } catch (error) {
-        console.error(error);
-        return res.status(404).json({ error: 'Error al enviar el token' })
+        return res.status(404).json({ error: 'Token invalido' })
     }
-
-    next();
 }
