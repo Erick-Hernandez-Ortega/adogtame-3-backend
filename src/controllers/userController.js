@@ -87,14 +87,12 @@ const logout = async (req, res) => {
     if (tokenStatus.status === 'error') {
       return res.status(400).json({ status: 'error', message: tokenStatus.message });
     }
-    
+
     if (tokenStatus.isTokenRemoved) {
       return res.status(400).json({ status: 'error', message: 'Token Removido Anteriomente' });
     }
 
     const user = await User.findById(tokenStatus.userID);
-    if (!user) throw new Error('No se encontro un usuario con ese ID');
-
     user.isTokenRemoved = true;
     await user.save();
 
