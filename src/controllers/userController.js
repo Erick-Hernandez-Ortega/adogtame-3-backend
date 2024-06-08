@@ -84,7 +84,11 @@ const logout = async (req, res) => {
     let token = req.headers.authorization.replace(/['"]+/g, '');
 
     const tokenStatus = await checkTokenStatus(token)
-    if(tokenStatus.isTokenRemoved){
+    if (tokenStatus.status === 'error') {
+      return res.status(400).json({ status: 'error', message: tokenStatus.message });
+    }
+    
+    if (tokenStatus.isTokenRemoved) {
       return res.status(400).json({ status: 'error', message: 'Token Removido Anteriomente' });
     }
 
