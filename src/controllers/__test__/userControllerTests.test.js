@@ -30,7 +30,7 @@ describe("POST /user", () => {
             name: 'jose',
             username: 'Joselin1',
             age: 'hola',
-            email: 'jose1@gmail.com',
+            email: 'jose1534254354@gmail.com',
             password: 'Jose1234'
         });
 
@@ -41,9 +41,9 @@ describe("POST /user", () => {
     it('Should display a 400 error for invalid name', async () => {
         const response = await request(app).post('/user').send({
             name: 'jose123',
-            username: 'Joselin1',
+            username: 'Joselin1121231',
             age: '23',
-            email: 'jose1@gmail.com',
+            email: 'jose123123123@gmail.com',
             password: 'Jose1234'
         });
 
@@ -54,9 +54,9 @@ describe("POST /user", () => {
     it('Should display a 400 error for invalid password', async () => {
         const response = await request(app).post('/user').send({
             name: 'jose',
-            username: 'Joselin1',
+            username: 'Joselin1314321243235',
             age: '23',
-            email: 'jose1@gmail.com',
+            email: 'jose1314312432@gmail.com',
             password: 'Jose123'
         });
 
@@ -67,7 +67,7 @@ describe("POST /user", () => {
     it('Should display a 409 error for existing email', async () => {
         const response = await request(app).post('/user').send({
             name: 'jose',
-            username: 'joselin',
+            username: 'joselin1245566',
             age: 23,
             email: 'jose@gmail.com',
             password: 'Jose1234'
@@ -82,7 +82,7 @@ describe("POST /user", () => {
             name: 'jose',
             username: 'Joselin',
             age: 23,
-            email: 'jose1@gmail.com',
+            email: 'jose124365@gmail.com',
             password: 'Jose1234'
         });
 
@@ -94,9 +94,9 @@ describe("POST /user", () => {
     it('Should display a 201 status for success response', async () => {
         const response = await request(app).post('/user').send({
             name: 'jose',
-            username: 'joselin1',
+            username: 'joselin2',
             age: 23,
-            email: 'jose1@gmail.com',
+            email: 'jose2@gmail.com',
             password: 'Jose1234'
         });
 
@@ -169,14 +169,11 @@ describe("POST /user/logout", () => {
         expect(response.body).toHaveProperty('message')
         expect(response.body.message).toBe('Usuario no encontrado')
     })
-    // Succesfull Response
-    /*it("Should display a 200 status for a succesfull response", async () => {
-        const response = await request(app).post('/user/login').send({
-            email: 'jose@gmail.com',
-            password: 'Jose1234'
-        })
- 
-        expect(response.status).toBe(200)
-        expect(response.body).toHaveProperty('token')
-    }) */
+    it("Should display a 400 error for a token status invalid", async () => {
+        const response = await request(app).post('/user/logout').set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY2NjRkZjBkNTQ0YjAxNjVjZjQ1OTU2YiIsImlhdCI6MTcxNzg4Njc2MiwiZXhwIjoxNzIwNDc4NzYyfQ.LuVTYxbAafPnp_XAveXHPft1ICoVLxLoabL40j1hayc')
+
+        expect(response.status).toBe(400)
+        expect(response.body).toHaveProperty('message')
+        expect(response.body.message).toBe('Token Removido Anteriomente')
+    })
 })
