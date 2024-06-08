@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../../index");
 
-// TODO arreglar el cierre de sesion de Mongo y la detención del servidor y termiar pruebas de logout
+// TODO arreglar el cierre de sesion de Mongo y la detención del servidor
 describe("POST /user", () => {
     // Validations
     it('Should display a 400 error for empty input', async () => {
@@ -175,5 +175,13 @@ describe("POST /user/logout", () => {
         expect(response.status).toBe(400)
         expect(response.body).toHaveProperty('message')
         expect(response.body.message).toBe('Token Removido Anteriomente')
+    })
+    // Success response
+    it("Should display a 200 status for a succesfull response", async () => {
+        const response = await request(app).post('/user/logout').set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY1ZDE1ZDNmOTVmMTg0ODhiNzBiMzg2NSIsImlhdCI6MTcxNzg4ODE3NSwiZXhwIjoxNzIwNDgwMTc1fQ.U3GS1Q7IBTHXTQUpHvvMgz8eg42lrLvECsMmnseqp-8')
+
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveProperty('status')
+        expect(response.body.status).toBe('Sesion cerrada correctamente')
     })
 })
