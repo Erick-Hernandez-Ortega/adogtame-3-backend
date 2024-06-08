@@ -162,25 +162,21 @@ describe("POST /user/logout", () => {
         expect(response.body).toHaveProperty('error')
         expect(response.body.error).toBe('Token invalido')
     })
+    it("Should display a 400 error for user NOT found", async () => {
+        const response = await request(app).post('/user/logout').set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY2NjRkYTlkOGZjMzM4NjRkYTM1OTY5MiIsImlhdCI6MTcxNzg4NTY5MCwiZXhwIjoxNzIwNDc3NjkwfQ.lzlbcD_-jxEIxIlczfsRDNg5fviDX8nkKH6Jm6dDRJA')
 
-    /*     it("Should display a 400 error for invalid password", async () => {
-            const response = await request(app).post('/user/login').send({
-                email: 'jose@gmail.com',
-                password: 'Jose123'
-            })
-    
-            expect(response.status).toBe(400)
-            expect(response.body).toHaveProperty('message')
-            expect(response.body.message).toBe('La contraseña no coincide')
+        expect(response.status).toBe(400)
+        expect(response.body).toHaveProperty('message')
+        expect(response.body.message).toBe('Usuario no encontrado')
+    })
+    // Succesfull Response
+    /*it("Should display a 200 status for a succesfull response", async () => {
+        const response = await request(app).post('/user/login').send({
+            email: 'jose@gmail.com',
+            password: 'Jose1234'
         })
-        // Succesfull Response
-        it("Should display a 200 status for a succesfull response", async () => {
-            const response = await request(app).post('/user/login').send({
-                email: 'jose@gmail.com',
-                password: 'Jose1234'
-            })
-    
-            expect(response.status).toBe(200)
-            expect(response.body).toHaveProperty('token')
-        }) */
+ 
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveProperty('token')
+    }) */
 })
