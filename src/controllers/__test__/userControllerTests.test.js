@@ -105,7 +105,7 @@ describe("POST /user", () => {
     })
 })
 
-describe("POST /user/login",() => {
+describe("POST /user/login", () => {
     // Validations
     it("Should display a 400 error for empty input", async () => {
         const response = await request(app).post('/user/login').send({})
@@ -146,43 +146,41 @@ describe("POST /user/login",() => {
     })
 })
 
-describe("POST /user/logout",() => {
+describe("POST /user/logout", () => {
     // Validations
-    it("Should display a 403 error for header", async () => {
+    it("Should display a 403 error for header not found", async () => {
         const response = await request(app).post('/user/logout').set('Authorization', '')
 
         expect(response.status).toBe(403)
         expect(response.body).toHaveProperty('error')
         expect(response.body.error).toBe('La petición no tiene la cabecera')
     })
-/*     it("Should display a 400 error for invalid email or username", async () => {
-        const response = await request(app).post('/user/login').send({
-            email: 'correo@correo.com',
-            password: 'Jose1234'
-        })
+    it("Should display a 404 error for token expired", async () => {
+        const response = await request(app).post('/user/logout').set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjY1ZDE1ZDNmOTVmMTg0ODhiNzBiMzg2NSIsImlhdCI6MTcxNzg4NTAwMCwiZXhwIjoxNzE3ODg1MDEwfQ.sI0OI6mT-ht7AOFu3BNU4w9YChsjP71XlTthMn0aF3g')
 
-        expect(response.status).toBe(400)
-        expect(response.body).toHaveProperty('message')
-        expect(response.body.message).toBe('El correo o el nombre de usurio no coinciden con ningún usuario')
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty('error')
+        expect(response.body.error).toBe('Token invalido')
     })
-    it("Should display a 400 error for invalid password", async () => {
-        const response = await request(app).post('/user/login').send({
-            email: 'jose@gmail.com',
-            password: 'Jose123'
-        })
 
-        expect(response.status).toBe(400)
-        expect(response.body).toHaveProperty('message')
-        expect(response.body.message).toBe('La contraseña no coincide')
-    })
-    // Succesfull Response
-    it("Should display a 200 status for a succesfull response", async () => {
-        const response = await request(app).post('/user/login').send({
-            email: 'jose@gmail.com',
-            password: 'Jose1234'
+    /*     it("Should display a 400 error for invalid password", async () => {
+            const response = await request(app).post('/user/login').send({
+                email: 'jose@gmail.com',
+                password: 'Jose123'
+            })
+    
+            expect(response.status).toBe(400)
+            expect(response.body).toHaveProperty('message')
+            expect(response.body.message).toBe('La contraseña no coincide')
         })
-
-        expect(response.status).toBe(200)
-        expect(response.body).toHaveProperty('token')
-    }) */
+        // Succesfull Response
+        it("Should display a 200 status for a succesfull response", async () => {
+            const response = await request(app).post('/user/login').send({
+                email: 'jose@gmail.com',
+                password: 'Jose1234'
+            })
+    
+            expect(response.status).toBe(200)
+            expect(response.body).toHaveProperty('token')
+        }) */
 })
