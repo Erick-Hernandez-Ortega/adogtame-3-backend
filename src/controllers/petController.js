@@ -45,7 +45,25 @@ const createPet = async (req, res) => {
     }
 };
 
+const getAllPetsAvailable = async (req, res) => {
+    try {
+        const pets = await Mascota.find({ available: true }, { __v: 0 });
+        res.status(200).json({
+            status: 'success',
+            message: 'Exito al obtener las mascotas',
+            pets
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: 'error',
+            message: 'Hubo un error',
+            error: error.message,
+        });
+    }
+};
+
 module.exports = {
     prueba,
-    createPet
+    createPet,
+    getAllPetsAvailable
 }
