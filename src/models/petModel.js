@@ -42,10 +42,10 @@ const MascotaSchema = Schema({
         ref: 'User',
         required: true,
     },
-    images: [{
+    image: {
         data: Buffer,
-        contentType: String
-    }],
+        contentType: String,
+    },
     date: {
         type: Date,
         default: Date.now(),
