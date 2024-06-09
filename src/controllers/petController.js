@@ -50,8 +50,6 @@ const createPet = async (req, res) => {
 const getAllPetsAvailable = async (req, res) => {
     try {
         const pets = await Mascota.find({ available: true }, { __v: 0 });
-
-        console.log(pets);
         
         const petsWithImages = pets.map(pet => {
             const base64Image = pet.image.data.toString('base64');
