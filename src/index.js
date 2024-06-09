@@ -5,7 +5,6 @@ const dotenv = require('dotenv');
 // Importamos por separado las rutas de cada archivo
 const userRoutes = require('./routes/userRoutes.js');
 const petRoutes = require('./routes/petRoutes.js');
-const publicationRoutes = require('./routes/publicationRoutes.js');
 const adoptionRoutes = require('./routes/adoptionRoutes.js');
 
 const { connectToDatabase } = require('./config/db-config');
@@ -25,7 +24,6 @@ connectToDatabase();
 // Configuración de rutas y otros elementos aquí...
 app.use('/user', userRoutes);
 app.use('/pet', petRoutes);
-app.use('/publication', publicationRoutes);
 app.use('/adoption', adoptionRoutes);
 
 if (require.main === module) {
