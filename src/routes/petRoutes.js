@@ -17,6 +17,6 @@ router.get('/prueba', mascotaController.prueba);
 router.get('/all-available', mascotaController.getAllPetsAvailable);
 
 // POST
-router.post('', autentication.auth, validatePublicationPet, upload.array('images'), mascotaController.createPet);
+router.post('', autentication.auth, validatePublicationPet, upload.single('image'), mascotaController.createPet);
 
 module.exports = router;
