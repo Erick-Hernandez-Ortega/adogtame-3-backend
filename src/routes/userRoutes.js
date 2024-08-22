@@ -9,6 +9,7 @@ const router = express.Router();
 // GET
 router.get('/prueba', autentication.auth, userController.prueba);
 router.get('/:email', userController.findByEmail);
+router.get('/id/:id', userController.findById);
 
 // http://localhost:3001/user
 router.post('', validateUserCreation, userController.createUser);
