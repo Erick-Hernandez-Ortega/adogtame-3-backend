@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('../services/jwt');
 const userValidation = require('../validations/userValidations');
 const { checkTokenStatus } = require('../services/checkToken');
+const saltRounds = 10;
 
 // No me quites mi función de pruebas :/
 const prueba = async (req, res) => {
@@ -22,11 +23,10 @@ const prueba = async (req, res) => {
   }
 }
 
-
-// Función para verificar la contraseña
-const comparePasswords = async (plainPassword, hashedPassword) => {
-  const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
-  return isMatch;
+// Función para hashear la contraseña
+const hashPassword = async (plainPassword) => {
+  const hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
+  return hashedPassword;
 };
 
 const createUser = async (req, res) => {
