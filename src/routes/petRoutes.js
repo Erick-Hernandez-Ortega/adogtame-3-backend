@@ -16,6 +16,7 @@ const router = express.Router();
 router.get('/prueba', mascotaController.prueba);
 router.get('/all-available', mascotaController.getAllPetsAvailable);
 router.get('/:id', mascotaController.getPetById);
+router.get('/user/:userId/pets', mascotaController.getPetsByUserId);
 
 // POST
 router.post('', autentication.auth, validatePublicationPet, upload.single('image'), mascotaController.createPet);
