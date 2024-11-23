@@ -132,11 +132,24 @@ const findById = async (req, res) => {
   }
 }
 
+const updateUser = async (req, res) => {
+
+  try {
+    const { name, username, email, password } = req.body
+
+    res.status(200).json({ message: 'Test', message: name });
+    
+  } catch (error) {
+    res.status(400).json({ error: 'Internal Error', message: error });
+  }
+}
+
 module.exports = {
   createUser,
   login,
   logout,
   prueba,
   findByEmail,
-  findById
+  findById,
+  updateUser,
 };
