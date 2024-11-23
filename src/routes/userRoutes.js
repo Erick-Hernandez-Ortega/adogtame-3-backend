@@ -15,5 +15,6 @@ router.get('/id/:id', userController.findById);
 router.post('', validateUserCreation, userController.createUser);
 router.post('/login', userController.login);
 router.post('/logout', autentication.auth, userController.logout);
+router.put('/update', autentication.auth, userController.updateUser);
 
 module.exports = router;
